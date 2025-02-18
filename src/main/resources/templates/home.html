@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns: th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Own News</title>
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            border-bottom: 2px solid black;
+            background: white;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-signup {
+            padding: 8px 15px;
+            border: 2px solid black;
+            background-color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .btn-signup:hover {
+            background-color: #f0f0f0;
+        }
+        .btn-login {
+            padding: 8px 15px;
+            border: none;
+            background-color: black;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .btn-login:hover {
+            background-color: #333;
+        }
+        .news-container {
+            width: 80%;
+            height: 500px;
+            margin-top: 30px;
+            border: 2px dashed black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="logo">My Own News</div>
+    <div class="auth-buttons">
+        <button class="btn-signup" onclick="location.href='/users/new'">회원가입</button>
+        <button class="btn-login">로그인</button>
+    </div>
+</div>
+<div class="news-container">뉴스 콘텐츠 영역</div>
+</body>
+</html>
