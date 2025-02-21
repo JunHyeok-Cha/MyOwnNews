@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns: th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,6 +57,11 @@
         button:hover {
             background-color: #f0f0f0;
         }
+        .error {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -76,6 +81,8 @@
             <label for="nickname">사용자 닉네임</label>
             <input type="text" id="nickname" name="nickname" required placeholder="nickname을 입력하세요">
         </div>
+
+        <p class="error" th:if="${errorMessage}" th:text="${errorMessage}"></p> <!-- 오류 메시지 표시 -->
 
         <button type="submit">가입하기</button>
     </form>

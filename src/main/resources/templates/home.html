@@ -74,6 +74,38 @@
         <button class="btn-login">로그인</button>
     </div>
 </div>
-<div class="news-container">뉴스 콘텐츠 영역</div>
+<div class="news-container" id="news-container"></div>
+
+<script>
+    async function fetchNews() {
+        try {
+            const response = await fetch('/api/news');
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const newsList = await response.json();
+            const newsContainer = document.getElementById('news-container');
+
+            newsContainer.innerHTML = newsList.map(news => `
+                <div class="news-item">
+                    <img src="${news.urlToImage}" alt="News Image">
+                    <div class="content">
+                        <h3><a href="${news.url}" target="_blank">${news.title}</a></h3>
+                        <p>${news.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error('뉴스 데이터를 불러오는 중 오류 발생:', error);
+            document.getElementById('news-container').innerHTML = `<p>뉴스 데이터를 불러오는 중 오류가 발생했습니다.</p>`;
+        }
+    }
+
+    fetchNews();
+</script>
+</body>
+</html>
+    </script>
+
 </body>
 </html>

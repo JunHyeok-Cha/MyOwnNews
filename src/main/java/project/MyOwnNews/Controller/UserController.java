@@ -2,6 +2,7 @@ package project.MyOwnNews.Controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +27,18 @@ public class UserController {
         return "users/new";
     }
     @PostMapping("/users/new")
-    public String create(@ModelAttribute UserDto userDto){
+    public String create(@ModelAttribute UserDto userDto, Model model){
         System.out.println("received username = " + userDto.getUsername());
         System.out.println("received password = " + userDto.getPassword());
         System.out.println("received nickname = " + userDto.getNickname());
-        userService.join(userDto);
-        return "redirect:/";
+        try{
+            userService.join(userDto);
+            return "redirect:/";
+        }
+        catch(IllegalArgumentException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "/users/new";
+        }
     }
 
 }

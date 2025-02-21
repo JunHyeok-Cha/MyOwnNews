@@ -22,7 +22,7 @@ public class UserService {
             throw new IllegalArgumentException("password은 반드시 입력해야 합니다.");
         }
         if(userRepository.findByUsername(userdto.getUsername()).isPresent()){
-            throw new RuntimeException("이미 존재하는 ID입니다.");
+            throw new IllegalArgumentException("이미 존재하는 ID입니다.");
         }
         User user = new User();
         user.setUsername(userdto.getUsername());
