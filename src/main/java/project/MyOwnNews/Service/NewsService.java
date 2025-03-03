@@ -37,10 +37,10 @@ public class NewsService {
 //        System.out.println("📌 API 응답 본문: " + response.getBody());
 
         // JSON을 DTO로 변환
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper om = new ObjectMapper();
         NewsDto.NewsResponse newsResponse;
         try {
-            newsResponse = objectMapper.readValue(response.getBody(), NewsDto.NewsResponse.class);
+            newsResponse = om.readValue(response.getBody(), NewsDto.NewsResponse.class);
             System.out.println("JSON 데이터 변환 성공~~~~~~!!");
         } catch (Exception e) {
             throw new RuntimeException("JSON 데이터 변환 실패: " + e.getMessage());
