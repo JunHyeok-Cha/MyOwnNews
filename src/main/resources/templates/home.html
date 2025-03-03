@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns: th="http://www.thymeleaf.org">
+<html xmlns: xmlns:th="http://www.w3.org/1999/html" th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Own News</title>
     <style>
         body {
-            font-family: "Times New Roman", serif;
+            font-family: Arial, sans-serif;
             background-color: #f9f9f9;
             color: #333;
             margin: 0;
@@ -23,6 +23,11 @@
             padding: 15px 30px;
             border-bottom: 2px solid black;
             background: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
         }
         .logo {
             font-size: 24px;
@@ -30,39 +35,77 @@
         }
         .auth-buttons {
             display: flex;
-            gap: 10px;
+            gap: 15px; /* 버튼 간격 조정 */
+            margin-right: 20px; /* 오른쪽 여백 추가 */
         }
-        .btn-signup {
-            padding: 8px 15px;
-            border: 2px solid black;
-            background-color: white;
+        .btn-signup, .btn-login .btn-logout {
+            padding: 10px 18px; /* 버튼 크기 조정 */
             font-size: 14px;
             cursor: pointer;
+            border-radius: 5px;
+            min-width: 100px; /* 버튼 최소 크기 설정 */
+            text-align: center;
+        }
+        .btn-signup {
+            border: 2px solid black;
+            background-color: white;
         }
         .btn-signup:hover {
             background-color: #f0f0f0;
         }
-        .btn-login {
-            padding: 8px 15px;
+        .btn-login, .btn-logout{
             border: none;
             background-color: black;
             color: white;
-            font-size: 14px;
-            cursor: pointer;
         }
-        .btn-login:hover {
+        .btn-login:hover, .btn-logout:hover {
             background-color: #333;
         }
         .news-container {
             width: 80%;
-            height: 500px;
-            margin-top: 30px;
-            border: 2px dashed black;
+            max-width: 800px;
+            margin-top: 80px; /* 헤더 때문에 여백 추가 */
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 600px; /* 일정 크기 이상이면 스크롤 */
+        }
+        .news-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #777;
+            gap: 15px;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        .news-item img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .news-item .content {
+            flex: 1;
+        }
+        .news-item h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+        .news-item a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .news-item a:hover {
+            text-decoration: underline;
+        }
+        .news-item p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #555;
         }
     </style>
 </head>
@@ -70,11 +113,18 @@
 <div class="header">
     <div class="logo">My Own News</div>
     <div class="auth-buttons">
-        <button class="btn-signup" onclick="location.href='/users/new'">회원가입</button>
-        <button class="btn-login">로그인</button>
+        <th:block th:if="${session.loggedUser != null}">
+            <span th:text="${session.loggedUser} + '님, 환영합니다!'"></span>
+            <button onclick="location.href='/users/logout'">로그아웃</button>
+        </th:block>
+        <th:block th:unless="${session.loggedUser}">
+            <button onclick="location.href='/users/new'">회원가입</button>
+            <button onclick="location.href='/users/login'">로그인</button>
+        </th:block>
     </div>
 </div>
-<div class="news-container" id="news-container"></div>
+
+<div class="news-container" id="news-container">뉴스를 불러오는 중...</div>
 
 <script>
     async function fetchNews() {
@@ -88,10 +138,10 @@
 
             newsContainer.innerHTML = newsList.map(news => `
                 <div class="news-item">
-                    <img src="${news.urlToImage}" alt="News Image">
+                    <img src="${news.urlToImage || 'https://via.placeholder.com/150'}" alt="News Image">
                     <div class="content">
                         <h3><a href="${news.url}" target="_blank">${news.title}</a></h3>
-                        <p>${news.description}</p>
+                        <p>${news.description || '내용 없음'}</p>
                     </div>
                 </div>
             `).join('');
@@ -103,9 +153,5 @@
 
     fetchNews();
 </script>
-</body>
-</html>
-    </script>
-
 </body>
 </html>

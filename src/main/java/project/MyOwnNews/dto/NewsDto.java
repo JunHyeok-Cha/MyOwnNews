@@ -18,7 +18,7 @@ public class NewsDto {
     @JsonProperty("publishedAt")
     private String publishedDate;
 
-    @JsonProperty("source") // ✅ JSON에서 "source"는 객체이므로 새로운 클래스로 매핑
+    @JsonProperty("source") // JSON에서 "source"는 객체이므로 새로운 클래스로 매핑
     private SourceDto source;
 
     @Getter @Setter

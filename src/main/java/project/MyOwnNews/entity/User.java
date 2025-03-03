@@ -33,4 +33,10 @@ public class User {
 
     @ElementCollection
     private List<String> interests; //관심 키워드 리스트
+
+    public User(String username, String password, String nickname) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+    }
 }

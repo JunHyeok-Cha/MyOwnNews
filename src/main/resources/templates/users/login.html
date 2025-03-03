@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
+    <title>로그인</title>
     <style>
         body {
             font-family: "Times New Roman", serif;
@@ -15,20 +15,19 @@
             color: #333;
         }
         .container {
-            width: 40%; /* 좌우 크기 줄이기 */
-            margin: 50px auto; /* 중앙 정렬 */
+            background: #fff;
             padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            border-radius: 0;
+            box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            border: 2px solid black;
         }
         .input-group {
             margin-bottom: 15px;
             position: relative;
         }
         input {
-            width: 80%;
+            width: 100%;
             padding: 10px;
             border: 1px solid black;
             font-size: 14px;
@@ -36,7 +35,7 @@
             color: #333;
         }
         .toggle-password {
-            width: 10px;
+            width: 10px
             position: absolute;
             right: 10px;
             top: 50%;
@@ -68,8 +67,8 @@
 </head>
 <body>
 <div class="container">
-    <h2>회원가입</h2>
-    <form action="/users/new" method="POST">
+    <h2>로그인</h2>
+    <form action="/users/login" method="POST">
         <div class="input-group">
             <label for="username">id</label>
             <input type="text" id="username" name="username" required placeholder="id를 입력하세요">
@@ -79,17 +78,13 @@
             <input type="password" id="password" name="password" required placeholder="password를 입력하세요">
             <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
         </div>
-        <div class="input-group">
-            <label for="nickname">사용자 닉네임</label>
-            <input type="text" id="nickname" name="nickname" required placeholder="nickname을 입력하세요">
-        </div>
 
         <p class="error" th:if="${errorMessage}" th:text="${errorMessage}"></p> <!-- 오류 메시지 표시 -->
 
-        <button type="submit">가입하기</button>
+        <button type="submit">로그인</button>
     </form>
-</div>
 
+</div>
 <script>
     function togglePassword() {
         const passwordField = document.getElementById('password');

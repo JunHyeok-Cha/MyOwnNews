@@ -1,5 +1,6 @@
 package project.MyOwnNews.Controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +29,6 @@ public class UserController {
     }
     @PostMapping("/users/new")
     public String create(@ModelAttribute UserDto userDto, Model model){
-        System.out.println("received username = " + userDto.getUsername());
-        System.out.println("received password = " + userDto.getPassword());
-        System.out.println("received nickname = " + userDto.getNickname());
         try{
             userService.join(userDto);
             return "redirect:/";
@@ -40,5 +38,25 @@ public class UserController {
             return "/users/new";
         }
     }
-
+    @GetMapping("/users/login")
+    public String loginForm(){
+        return "users/login";
+    }
+    @PostMapping("/users/login")
+    public String login(@ModelAttribute UserDto userDto, Model model, HttpSession session){
+        try{
+            userService.check(userDto);
+            session.setAttribute("loggedUser", userDto.getUsername());  //세션에 username 저장
+            return "redirect:/";
+        }
+        catch(IllegalArgumentException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "/users/login";
+        }
+    }
+    @GetMapping("/users/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
 }

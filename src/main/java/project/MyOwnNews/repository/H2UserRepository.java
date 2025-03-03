@@ -10,7 +10,6 @@ import project.MyOwnNews.entity.User;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 @Transactional
 public class H2UserRepository implements UserRepository {
 
