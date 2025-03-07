@@ -65,9 +65,7 @@ public class NewsNaverService {
 
             List<News> newsList = newsResponse.getNewsList().stream()
                     .map(newsDto -> new News(
-                            newsDto.getTitle(), newsDto.getDescription(), newsDto.getUrl(), newsDto.getUrlToImage(),
-                            newsDto.getPublishedDate(), newsDto.getAuthor(), newsDto.getContent(),
-                            newsDto.getSource().getId(), newsDto.getSource().getName()))
+                            newsDto.getTitle(), newsDto.getOriginallink(), newsDto.getLink(), newsDto.getDescription(), newsDto.getPubDate()))
                     .collect(Collectors.toList());
 
             newsList.forEach(newsRepository::save);

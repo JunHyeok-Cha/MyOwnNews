@@ -16,28 +16,19 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;           //뉴스 제목
+    private String title;   //기사 제목
+    private String originallink;    //원문 기사 url
+    private String link;    //네이버 기사 url
     @Column(length = 3000)
-    private String description;     //뉴스 내용 요약
-    private String url;             //뉴스 원본 링크
-    private String urlToImage;      //썸네일 이미지 링크
-    private String publishedDate;   //작성 날짜
-    private String author;          //글쓴이
-    @Column(length = 3000)
-    private String content;
-    private String sourceId;        //뉴스 출처 ID
-    private String sourceName;      //뉴스 출처 이름
+    private String description; //내용 요약
+    private String pubDate; //작성 시간
 
-    public News(String title, String description, String url, String urlToImage, String publishedDate, String author, String content, String sourceId, String sourceName) {
+    public News(String title, String originallink, String link, String description, String pubDate) {
         this.title = title;
+        this.originallink = originallink;
+        this.link = link;
         this.description = description;
-        this.url = url;
-        this.urlToImage = urlToImage;
-        this.publishedDate = publishedDate;
-        this.author = author;
-        this.content = content;
-        this.sourceId = sourceId;
-        this.sourceName = sourceName;
+        this.pubDate = pubDate;
     }
 }
 

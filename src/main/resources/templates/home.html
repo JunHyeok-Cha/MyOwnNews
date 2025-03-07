@@ -138,10 +138,11 @@
 
             newsContainer.innerHTML = newsList.map(news => `
                 <div class="news-item">
-                    <img src="${news.urlToImage || 'https://via.placeholder.com/150'}" alt="News Image">
+<!--                    <img src="${news.urlToImage || 'https://via.placeholder.com/150'}" alt="News Image">-->
                     <div class="content">
-                        <h3><a href="${news.url}" target="_blank">${news.title}</a></h3>
+                        <h3><a href="${news.link}" target="_blank">${news.title}</a></h3>
                         <p>${news.description || '내용 없음'}</p>
+                        <p>${news.pubDate || '내용 없음'}</p>
                     </div>
                 </div>
             `).join('');

@@ -8,12 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import project.MyOwnNews.Service.NewsNaverService;
 import project.MyOwnNews.entity.News;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class NewsNaverController {
     @Autowired
     private HttpSession session;
@@ -24,7 +25,6 @@ public class NewsNaverController {
     }
 
     @GetMapping("/api/news")
-    @ResponseBody
     public ResponseEntity<List<News>> getNews(){
         try{
             List<News> newsList = newsNaverService.fetchNews("최신 인기 뉴스");
